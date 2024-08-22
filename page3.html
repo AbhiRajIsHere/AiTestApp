@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Test Application</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div class="logo-container">
+            <a href="Exam.html">
+                <img src="image/logo.png" alt="Logo" class="logo">
+            </a>
+            <span class="app-name">AI Test Application</span>
+        </div>
+        <div class="action-container">
+            <span class="no-account">Don't have an account?</span>
+            <button class="sign-up-btn">Sign Up <i class="fas fa-arrow-right"></i></button>
+            <button id="theme-toggle-btn" class="theme-toggle-btn">Dark</button>
+        </div>
+    </header>
+    <div class="container">
+        <!-- Main Content Section -->
+        <section class="main-content">
+            <div class="image-section">
+                <img src="image/com.png" alt="Test Image" class="test-image">
+            </div>
+            <div class="form-section">
+                <h2>You're about to join a Test...</h2>
+                <form id="login-form">
+                    <div class="form-group">
+                        <label for="test-id">Enter Test ID</label>
+                        <input type="text" id="test-id" placeholder="Enter Test Id or Test Link" required>
+                        <small id="test-id-error" style="color: red; display: none;">Please enter a Test ID.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Enter Password</label>
+                        <input type="password" id="password" placeholder="Enter Test Password" required>
+                        <small id="password-error" style="color: red; display: none;">Please enter a password.</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" placeholder="Enter Your Name" required>
+                        <small id="name-error" style="color: red; display: none;">Please enter your name.</small>
+                    </div>
+                    <button type="button" id="join-btn" class="join-btn">Join</button>
+                </form>
+            </div>
+        </section>
+    </div>
+
+    <script>
+        // Pre-saved Test Data
+        const testData = [
+            {
+                testId: "test123",
+                password: "password123"
+            },
+            {
+                testId: "test456",
+                password: "password456"
+            }
+        ];
+
+        // Form validation and submission handling
+        document.getElementById('join-btn').addEventListener('click', function() {
+            const testIdInput = document.getElementById('test-id');
+            const passwordInput = document.getElementById('password');
+            const nameInput = document.getElementById('name');
+            
+            const testIdError = document.getElementById('test-id-error');
+            const passwordError = document.getElementById('password-error');
+            const nameError = document.getElementById('name-error');
+            
+            const testIdValue = testIdInput.value.trim();
+            const passwordValue = passwordInput.value.trim();
+            const nameValue = nameInput.value.trim();
+            
+            let isValid = true;
+
+            // Validate Test ID
+            if (testIdValue === '') {
+                testIdError.style.display = 'block';
+                isValid = false;
+            } else {
+                testIdError.style.display = 'none';
+            }
+            
+            // Validate Password
+            if (passwordValue === '') {
+                passwordError.style.display = 'block';
+                isValid = false;
+            } else {
+                passwordError.style.display = 'none';
+            }
+            
+            // Validate Name
+            if (nameValue === '') {
+                nameError.style.display = 'block';
+                isValid = false;
+            } else {
+                nameError.style.display = 'none';
+            }
+
+            // If all fields are valid, proceed with authentication
+            if (isValid) {
+                // Check if credentials match the pre-saved data
+                const test = testData.find(test => test.testId === testIdValue && test.password === passwordValue);
+
+                if (test) {
+                    // Set the authentication flag
+                    sessionStorage.setItem('authenticated', 'true');
+                    window.location.href = "whatsapp.html"; // Redirect to the protected page
+                } else {
+                    alert("Invalid Test ID or Password. Please try again.");
+                }
+            }
+        });
+
+        // Dark mode toggle script
+        const themeToggleBtn = document.getElementById('theme-toggle-btn');
+        const body = document.body;
+        const header = document.querySelector('header');
+        const signUpBtn = document.querySelector('.sign-up-btn');
+
+        themeToggleBtn.addEventListener('click', function() {
+            body.classList.toggle('dark-mode');
+            header.classList.toggle('dark-mode');
+            signUpBtn.classList.toggle('dark-mode');
+            themeToggleBtn.classList.toggle('dark-mode');
+
+            // Toggle button text
+            if (themeToggleBtn.textContent === 'Dark') {
+                // themeToggleBtn.textContent = 'Light';
+                themeToggleBtn.textContent = 'Dark';
+            } else {
+                themeToggleBtn.textContent = 'Dark';
+            }
+        });
+
+        // Clear session storage when landing on the login page
+        sessionStorage.clear();
+    </script>
+</body>
+</html>

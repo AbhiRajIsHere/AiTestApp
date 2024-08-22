@@ -1,0 +1,870 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>WhatsApp Web Chat</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?
+  family=Roboto:wght@300;400;500;700;900&display=swap">
+  <script src="https://kit.fontawesome.com/2278fa0a69.js" crossorigin="anonymous"></script>
+  <style>
+    body, html {
+      height: 100%;
+      margin: 0;
+      font-family: 'Roboto', sans-serif;
+      background-color: #ece5dd;
+      overflow: hidden;
+    }
+
+    .top-bar {
+      width: 100%;
+      height: 5%;
+      background: #2a2f32;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+      color: white;
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 1000;
+      border-bottom: 2px solid white;
+    }
+
+    .top-bar .top-icons,
+    .top-bar .top-profile {
+      display: flex;
+      align-items: center;
+    }
+
+    .top-bar .top-icons i,
+    .top-bar .top-profile img {
+      margin: 0 10px;
+      cursor: pointer;
+      border-radius: 50%;
+      height: auto;
+    }
+
+    .container {
+      display: flex;
+      height: 96%;
+      padding-top: 2%; 
+      overflow: hidden;
+      width: 100%;
+    }
+
+    .left-sidebar {
+      width: 60px;
+      background: #2a2f32;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      color: white;
+      position: sticky;
+      height: 100%;
+    }
+
+    .left-sidebar .top-icons,
+    .left-sidebar .bottom-icons {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .left-sidebar img,
+    .left-sidebar i {
+      margin: 20px 0;
+      cursor: pointer;
+    }
+
+    .sidebar {
+      width: 30%;
+      background: #f8f9fa;
+      border-right: 1px solid #ddd;
+      overflow-y: hidden;
+      overflow-x: hidden;
+      padding-top: 0;
+      height:100%;
+      position: relative; /* Ensure it doesn't scroll into the top-bar */
+    }
+
+    .sidebar::-webkit-scrollbar {
+      width: 0px;
+      background: transparent;
+    }
+
+    .sidebar .header,
+    .sidebar .search-bar,
+    .sidebar .contact-list {
+      width: 100%;
+      box-sizing: border-box; /* Ensures padding and border are included in width */
+    }
+
+    .chat-section {
+      width: 70%;
+      display: flex;
+      flex-direction: column;
+      background: #ece5dd;
+      overflow: hidden;
+    }
+
+    .header {
+      background: #075E54;
+      color: white;
+      padding: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header .left-section {
+      display: flex;
+      align-items: center;
+    }
+
+    .header i{
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .header .icons i {
+      margin-left: 15px;
+      cursor: pointer;
+    }
+
+    .sidebar .search-bar {
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+    }
+
+    .sidebar .search-bar input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 20px;
+      border: 1px solid #ddd;
+      background: #f0f0f0;
+      outline: none;
+    }
+
+    .contact-list {
+      overflow-y: auto;
+      height: calc(100% - 110px);
+    }
+
+    .contact {
+      display: flex;
+      padding: 10px;
+      border-bottom: 1px solid #ddd;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .contact:hover {
+      background: #f1f1f1;
+    }
+
+    .contact img {
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .contact p {
+      margin: 0;
+    }
+
+    .contact .name {
+      font-weight: bold;
+    }
+
+    .contact .message {
+      color: #888;
+    }
+
+    .messages {
+      flex-grow: 1;
+      padding: 20px;
+      overflow-y: auto;
+      overflow-x: hidden;
+      max-height: calc(100vh - 5% - 110px); /* Ensures that the content is scrollable only when overflowing */
+    }
+
+    .message {
+      margin-bottom: 20px;
+      display: flex;
+    }
+
+    .message.received {
+      justify-content: flex-start;
+    }
+
+    .message.sent {
+      justify-content: flex-end;
+    }
+
+    .message .content {
+      max-width: 60%;
+      padding: 10px;
+      border-radius: 7.5px;
+    }
+
+    .message.received .content {
+      background: white;
+      border-radius: 7.5px 7.5px 7.5px 0;
+    }
+
+    .message.sent .content {
+      background: #dcf8c6;
+      border-radius: 7.5px 7.5px 0 7.5px;
+    }
+
+    .footer {
+      background: #fff;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      border-top: 1px solid #ddd;
+      overflow-x: hidden;
+    }
+
+    .footer input {
+      flex-grow: 1;
+      border: none;
+      padding: 10px;
+      border-radius: 20px;
+      margin-right: 10px;
+      background: #f0f0f0;
+      outline: none;
+    }
+
+    .footer button {
+      background: #075E54;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      padding: 10px 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .footer .fa-smile {
+      color: #075E54;
+      margin-right: 10px;
+    }
+
+    .footer .fa-paperclip {
+      color: #075E54;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+
+    /* Hide the file input */
+    .file-input {
+      display: none;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none; 
+      position: fixed; 
+      z-index: 1; 
+      left: 0;
+      top: 0;
+      width: 100%; 
+      height: 100%; 
+      overflow: auto; 
+      background-color: rgba(0,0,0,0.4); 
+    }
+
+    .modal-content {
+      background-color: #2a2f32;
+      margin: auto;
+      padding: 0;
+      border: 1px solid #888;
+      width: 100%;
+      max-width: 400px; 
+      height: 100%; 
+      max-height: 600px;
+      border-radius: 10px;
+      overflow: hidden;
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      transform: translateY(100%);
+      animation: slide-up 0.4s forwards;
+      overflow-x: hidden;
+    }
+
+    @keyframes slide-up {
+      from {
+        transform: translateY(100%);
+      }
+      to {
+        transform: translateY(0);
+      }
+    }
+
+    .close {
+      color: #fff;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      padding: 10px;
+      cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+      color: #999;
+      text-decoration: none;
+    }
+
+    .settings-container {
+      display: flex;
+      height: 100%;
+      width: 100%;
+      background: #2a2f32;
+      color: white;
+    }
+
+    .settings-sidebar {
+      width: 30%;
+      background: #2a2f32;
+      display: flex;
+      flex-direction: column;
+      padding: 20px;
+      border-right: 1px solid #555;
+    }
+
+    .settings-sidebar .menu-item {
+      margin-bottom: 20px;
+      cursor: pointer;
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    .settings-sidebar .menu-item.active,
+    .settings-sidebar .menu-item:hover {
+      background: #40454a;
+    }
+
+    .settings-content {
+      width: 70%;
+      padding: 20px;
+      overflow-y: auto;
+    }
+
+    .settings-content h2 {
+      margin-top: 0;
+    }
+
+    .settings-content p {
+      margin: 10px 0;
+    }
+
+    .settings-content select,
+    .settings-content input[type="checkbox"] {
+      margin-left: 10px;
+    }
+
+    /* Add this CSS to hide the sidebar when the 'hidden' class is added */
+    .hidden {
+      display: none;
+    }
+
+    /* Make chat-section and footer full width when sidebar is hidden */
+    .sidebar.hidden ~ .chat-section {
+      width: 100%;
+    }
+
+    /* .sidebar.hidden ~ .chat-section .footer {
+      width: 99%;
+    } */
+
+    /* Ensure that footer still aligns correctly when full width */
+    .chat-section .footer {
+      position: relative; /* Ensure it's positioned relative to its parent */
+      width: calc(100% - 20px); /* Adjust width to fit within parent with padding */
+      margin: 0; /* Add margin to fit within the container */
+    }
+
+    @media (max-width: 1024px){
+      .container{
+        padding-top: 6%;
+      }
+    }
+    @media (max-width: 900px) and (min-width: 769px){
+      .container{
+        padding-top: 6%;
+      }
+    }
+    
+    @media (max-width: 768px) and (min-width:541px){
+      .container{
+        padding-top: 5%;
+      }
+    }
+
+    @media (max-width: 540px) and (min-width:480px){
+      .container{
+        padding-top: 5%;
+      }
+    }
+    @media (max-width: 480px) {
+      .container{
+        padding-top: 9%;
+      }
+    }
+@media (max-width: 768px) {
+  .sidebar {
+    display: none;
+  }
+  
+  /* Adjust the chat-section to take full width */
+  .chat-section {
+    width: 100%;
+  }
+  
+  /* Make sure the footer is full width when sidebar is hidden */
+  .chat-section .footer {
+    width: calc(100% - 20px); /* Adjust width to fit within parent */
+  }
+}
+
+/* Show the sidebar when the menu icon is clicked */
+@media (max-width: 768px) {
+  .sidebar.hidden {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 70%;
+    background: #f8f9fa;
+    z-index: 1000;
+    overflow-y: auto;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    transform: translateX(-100%);
+  }
+
+  .sidebar.hidden.show {
+    transform: translateX(0);
+  }
+
+  /* Adjust the chat-section width when sidebar is shown */
+  .chat-section.expanded {
+    width: 100%;
+  }
+}
+
+
+
+
+  </style>
+</head>
+<body>
+
+  
+  <div class="top-bar">
+    <div class="top-icons">
+      <i class="fa-solid fa-ellipsis-vertical"></i>
+      <i class="fa-regular fa-envelope"></i>
+      <i class="fa-solid fa-calendar-days"></i>
+    </div>
+    <div class="top-profile">
+      <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" width="40"> -->
+    </div>
+  </div>
+  <div class="container">
+    <div class="left-sidebar">
+      <div class="top-icons">
+        <i class="fas fa-bars icon"></i>
+        <i class="fas fa-comment-dots"></i>
+        <i class="fas fa-phone-alt"></i>
+      </div>
+      <div class="bottom-icons">
+        <i class="fas fa-circle-notch"></i>
+        <i class="fas fa-star"></i>
+        <i class="fas fa-cog" id="settings-icon"></i>
+        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" width="40">
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="header">
+        <div class="left-section">
+          <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp" alt="avatar" width="40"> -->
+          <i class="fa-solid fa-arrow-left"></i>
+          <h5 class="mb-0">Chats</h5>
+        </div>
+        <div class="icons">
+          <i class="fas fa-search"></i>
+          <i class="fas fa-ellipsis-v"></i>
+        </div>
+      </div>
+      <div class="search-bar">
+        <input type="text" id="contact-search" placeholder="Search or start new chat">
+      </div>
+      <div class="contact-list"></div>
+    </div>
+    <div class="chat-section">
+      <div class="header">
+        <div class="left-section">
+          <img src="image/logo.png" alt="avatar" id="chat-avatar" width="40" class="me-2">
+          <h5 class="mb-0" id="chat-name"></h5>
+        </div>
+        <div class="icons">
+          <i class="fas fa-search"></i>
+          <i class="fas fa-ellipsis-v"></i>
+        </div>
+      </div>
+      <div class="messages"></div>
+      <div class="footer">
+        <i class="fas fa-smile"></i>
+        <i class="fas fa-paperclip" id="attachment-button"></i>
+        <input type="file" id="file-input" class="file-input">
+        <input type="text" placeholder="Type a message" id="message-input">
+        <button type="button" id="send-button"><i class="fas fa-paper-plane"></i></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- The Modal -->
+  <div id="settingsModal" class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <div class="settings-container">
+        <div class="settings-sidebar">
+          <div class="menu-item active" data-section="general-settings">
+            <i class="fas fa-cogs"></i> General
+          </div>
+          <div class="menu-item" data-section="account-settings">
+            <i class="fas fa-user"></i> Account
+          </div>
+          <div class="menu-item" data-section="chat-settings">
+            <i class="fas fa-comments"></i> Chats
+          </div>
+          <div class="menu-item" data-section="notifications-settings">
+            <i class="fas fa-bell"></i> Notifications
+          </div>
+          <div class="menu-item" data-section="storage-settings">
+            <i class="fas fa-database"></i> Storage
+          </div>
+        </div>
+        <div class="settings-content">
+          <div id="general-settings" class="general-settings active">
+            <h2>General</h2>
+            <p><b>Login:</b> Start WhatsApp at login <input type="checkbox"></p>
+            <p><b>Language:</b> <select><option>System default</option></select></p>
+            <p><b>Typing:</b> Replace text with emoji <input type="checkbox" checked></p>
+          </div>
+          <div id="account-settings" class="account-settings">
+            <h2>Account</h2>
+            <!-- Add account settings here -->
+          </div>
+          <div id="chat-settings" class="chat-settings">
+            <h2>Chats</h2>
+            <!-- Add chat settings here -->
+          </div>
+          <div id="notifications-settings" class="notifications-settings">
+            <h2>Notifications</h2>
+            <!-- Add notifications settings here -->
+          </div>
+          <div id="storage-settings" class="storage-settings">
+            <h2>Storage</h2>
+            <!-- Add storage settings here -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+
+    if (sessionStorage.getItem('authenticated') !== 'true') {
+      // If not authenticated, redirect to the login page
+      window.location.href = "page3.html"; // Change to your login page
+    }
+
+    // Invalidate session when the user navigates away or refreshes the page
+    window.addEventListener('beforeunload', function () {
+      sessionStorage.removeItem('authenticated'); // Clear the session storage on unload
+    });
+
+    document.addEventListener("DOMContentLoaded",function () {
+
+    //Element Selectors
+    const contactListElement = document.querySelector('.contact-list');
+    const messagesElement = document.querySelector('.messages');
+    const chatAvatar = document.getElementById('chat-avatar');
+    const chatName = document.getElementById('chat-name');
+    const contactSearchInput = document.getElementById('contact-search');
+    const attachmentButton = document.getElementById('attachment-button');
+    const fileInput = document.getElementById('file-input');
+    const sendButton = document.getElementById('send-button');
+    const messageInput = document.getElementById('message-input');
+    const menuIcon = document.querySelector('.fas.fa-bars.icon');
+    const sidebar = document.querySelector('.sidebar');
+    const chatSection = document.querySelector('.chat-section');
+    const closeModal = document.querySelector('.close');
+    const settingsIcon = document.getElementById('settings-icon');
+    const settingsModal = document.getElementById("settingsModal");
+    const menuItems = document.querySelectorAll('.menu-item');
+    const sections = document.querySelectorAll('.settings-content > div');
+    const backArrow = document.querySelector('.fa-arrow-left');
+
+
+
+    //Data Initialization
+    const contacts = [
+      {
+        "id": 1,
+        "name": "John Doe",
+        "message": "Hello, Are you there?",
+        "img": "https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-8.webp",
+        "chat": [
+          {"type": "received", "content": "Hello, are you there?"},
+          {"type": "sent", "content": "Yes, I'm here."},
+          {"type": "received", "content": "Great! Let's get started."}
+        ]
+      },
+      {
+        "id": 2,
+        "name": "Rohit Sharma",
+        "message": "Hello, Are you there?",
+        "img": "https://gravatar.com/avatar/bffbeffe2c3290a75a46ed00403b814b?s=400&d=robohash&r=x",
+        "chat": [
+          {"type": "received", "content": "Hello, are you there?"},
+          {"type": "sent", "content": "Yes, I'm here."},
+          {"type": "received", "content": "Great! Let's get started."}
+        ]
+      }
+    ];
+    
+    
+
+    // Function to render contacts
+    function renderContacts(contactArray) {
+      contactListElement.innerHTML = '';
+      contactArray.forEach(contact => {
+        const contactElement = document.createElement('div');
+        contactElement.classList.add('contact');
+        contactElement.innerHTML = `
+          <img src="${contact.img}" alt="avatar" width="40">
+          <div>
+            <p class="name">${contact.name}</p>
+            <p class="message">${contact.message}</p>
+          </div>
+        `;
+
+        // Event listener to update chat window when a contact is clicked
+        contactElement.addEventListener('click', () => {
+          chatAvatar.src = contact.img;
+          chatName.textContent = contact.name;
+          messagesElement.innerHTML = '';
+          contact.chat.forEach(msg => {
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', msg.type);
+            messageElement.innerHTML = `
+              <div class="content">
+                <p>${msg.content}</p>
+              </div>
+            `;
+            messagesElement.appendChild(messageElement);
+          });
+        });
+
+        contactListElement.appendChild(contactElement);
+      });
+    }
+
+    // Initial render of contacts
+    renderContacts(contacts);
+
+    // Event listener for the search input to filter contacts
+    contactSearchInput.addEventListener('input', (event) => {
+      const searchTerm = event.target.value.toLowerCase();
+      const filteredContacts = contacts.filter(contact => 
+        contact.name.toLowerCase().includes(searchTerm)
+      );
+      renderContacts(filteredContacts);
+    });
+
+    // Event listener for the attachment button to trigger the file input
+    attachmentButton.addEventListener('click', () => {
+      fileInput.click();
+    });
+
+    // Event listener for file input change
+    fileInput.addEventListener('change', (event) => {
+      const file = event.target.files[0];
+      if (file) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', 'sent');
+        messageElement.innerHTML = `
+          <div class="content">
+            <p>File uploaded: ${file.name}</p>
+          </div>
+        `;
+        messagesElement.appendChild(messageElement);
+      }
+    });
+
+    // Function to send a message
+    function sendMessage(content) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message', 'sent');
+      messageElement.innerHTML = `
+        <div class="content">
+          <p>${content}</p>
+        </div>
+      `;
+      messagesElement.appendChild(messageElement);
+    }
+
+    // Function to receive a message
+    function receiveMessage(content) {
+      const messageElement = document.createElement('div');
+      messageElement.classList.add('message', 'received');
+      messageElement.innerHTML = `
+        <div class="content">
+          <p>${content}</p>
+        </div>
+      `;
+      messagesElement.appendChild(messageElement);
+    }
+
+    // Event listener for the send button
+    sendButton.addEventListener('click', () => {
+      const messageContent = messageInput.value.trim();
+      if (messageContent) {
+        sendMessage(messageContent);
+        messageInput.value = '';
+
+        // Simulate a response from the receiver
+        setTimeout(() => {
+          receiveMessage("Can't talk right now, sorry.");
+        }, 1000);
+      }
+    });
+
+    //Ensure sidebar is hidden initially in responsive view
+    function updateLayout(){
+      if(window.innerWidth <= 768){
+        sidebar.classList.add('hidden');
+      }else{
+        sidebar.classList.remove('hidden');
+        sidebar.classList.remove('show');
+      }
+    }
+
+    updateLayout();
+    window.addEventListener('resize', updateLayout);
+
+    //function to toggle sidebar visibility based on  screen size
+
+    function toggleSidebar() {
+    if (window.innerWidth <= 768) {
+      sidebar.classList.toggle('show');  // Toggle 'show' class for mobile view
+      chatSection.classList.toggle('expanded', sidebar.classList.contains('show'));
+    } else {
+      sidebar.classList.toggle('hidden'); // Toggle 'hidden' class for desktop view
+    }
+  }
+   // Event listener for the menu icon click (works for both desktop and responsive)
+   menuIcon.addEventListener('click', toggleSidebar);
+
+    // Event listener for the back arrow click
+    backArrow.addEventListener('click', toggleSidebar);
+
+
+    //Toggle sidebar visibility and chat section widht
+    // menuIcon.addEventListener('click', function() {
+    //     sidebar.classList.toggle('show');
+    //     chatSection.classList.toggle('expanded', sidebar.classList.contains('show'));
+    // });
+
+    // Hide sidebar when clicking inside the chat section
+    chatSection.addEventListener('click', function () {
+    if (window.innerWidth <= 768 && sidebar.classList.contains('show')) {
+      sidebar.classList.remove('show');
+      chatSection.classList.remove('expanded');
+    }
+  });
+
+    // Show settings modal
+    settingsIcon.addEventListener('click', function() {
+        settingsModal.style.display = "block";
+    });
+
+    // Close settings modal
+    closeModal.addEventListener('click', function() {
+        settingsModal.style.display = "none";
+    });
+
+    // Close modal when clicking outside of it
+    window.addEventListener('click', function(event) {
+        if (event.target == settingsModal) {
+            settingsModal.style.display = "none";
+        }
+    });
+
+    // Get the modal
+    // var modal = document.getElementById("settingsModal");
+
+    // Get the button that opens the modal
+    // var btn = document.getElementById("settings-icon");
+
+    // Get the <span> element that closes the modal
+    // var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    // btn.onclick = function() {
+    //   modal.style.display = "block";
+    // }
+
+    // When the user clicks on <span> (x), close the modal
+    // span.onclick = function() {
+    //   modal.style.display = "none";
+    // }
+
+    // When the user clicks anywhere outside of the modal, close it
+    // window.onclick = function(event) {
+    //   if (event.target == modal) {
+    //     modal.style.display = "none";
+    //   }
+    // }
+
+    //Event listener for the back arrow click
+    // backArrow.addEventListener('click', function(){
+    //   sidebar.classList.toggle('hidden');//toggle the sidebar's visibility
+    // });
+
+    //Event listener for the menu icon click
+    // menuIcon.addEventListener('click' , function(){
+    //   sidebar.classList.toggle('hidden');// toggle the sidebar's visibility
+    // });
+
+
+    // Settings menu item click event
+      menuItems.forEach(item => {
+      item.addEventListener('click', () => {
+        menuItems.forEach(i => i.classList.remove('active'));
+        item.classList.add('active');
+
+        const sectionToShow = item.getAttribute('data-section');
+        sections.forEach(section => {
+          section.classList.toggle('active', section.id === sectionTOShow)
+        });
+      });
+    });
+  });
+</script>
+</body>
+</html>

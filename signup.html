@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Test Application - Sign Up</title>
+    <link rel="stylesheet" href="signup.css">
+   
+</head>
+<body>
+    <div class="container">
+        <!-- Sign-Up Form Section -->
+        <div class="form-section">
+            <div class="sign-btn">
+                <h2>Sign up for an account...</h2>
+                <img src="image/remove.png" id="closeButton" alt="Close"> <!-- Added id for the close button -->
+            </div>
+
+            <form>
+                <div class="name-fields">
+                    <input type="text" placeholder="First Name" required>
+                    <input type="text" placeholder="Surname" required>
+                </div>
+
+                <input type="Email" placeholder="Email" required style="padding: 10px; margin-bottom: 16px;">
+                <input type="password" placeholder="New Password" required>
+                <div class="description">
+                    <p>By clicking Sign Up, you agree to our Terms, Privacy Policy and Cookies Policy. You may receive SMS notifications from us and can opt out at any time.</p>
+                </div>
+                <button type="submit">Sign Up</button>
+                <div class="social-login">
+                    <h4>Or sign up with</h4>
+                    <div class="social-buttons">
+                        <button class="google">
+                            <img src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-pks9lbdv.png" alt="Google"> Google
+                        </button>
+                        <button class="facebook">
+                            <img src="https://static.vecteezy.com/system/resources/previews/018/757/862/non_2x/facebook-logo-facebook-icon-free-free-vector.jpg" alt="facebook"> Facebook
+                        </button>
+                        <button class="apple">
+                            <img src="https://cdn-icons-png.flaticon.com/512/0/747.png" alt="apple"> Apple
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Close button click event to redirect to page2.html
+        const closeButton = document.getElementById('closeButton');
+        closeButton.addEventListener('click', function() {
+            window.location.href = 'page2.html'; 
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,554 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    /* background-color: #ebebeb; */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure the content takes up the full height */
+    flex-direction: column;
+    
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%; /* Make sure it takes full width */
+    margin: 0 auto;
+    padding: 20px;
+}
+/* Add dark mode styles */
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+header.dark-mode {
+    background-color: #444;
+    border-bottom: 1px solid #555;
+}
+
+.sign-up-btn.dark-mode {
+    background-color: #ff6600;
+    color: #fff;
+    border: 2px solid #ff6600;
+}
+
+.sign-up-btn.dark-mode:hover {
+    background-color: #fff;
+    color: #ff6600;
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+    background-color: #ff6600;
+    color: #fff;
+    border: 2px solid #ff6600;
+    border-radius: 20px;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+}
+
+.theme-toggle-btn.dark-mode {
+    background-color: #444;
+    color: #fff;
+    border-color: #444;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px; /* Add some horizontal padding */
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    width: 93%;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.app-name {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #716262;
+}
+
+.action-container {
+    display: flex;
+    align-items: center;
+}
+
+.join-test {
+    margin-right: 10px;
+    font-size: 1rem;
+    color: #716262;
+}
+
+.sign-up-btn {
+    background-color: #ff6600;
+    color: #fff;
+    border: 2px solid #ff6600;
+    border-radius: 20px;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.sign-up-btn:hover {
+    background-color: #fff;
+    color: #ff6600;
+}
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    
+    padding-bottom: 20px;
+}
+
+.text-section {
+    max-width: 100%;
+    flex: 1 1 50%;
+    padding-right: 20px;
+    box-sizing: border-box;
+}
+
+.title {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: #333;
+}
+
+
+.subtitle {
+    font-size: 1.2rem;
+    color: #716262;
+    margin: 10px 0;
+}
+
+.features {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    /* gap: 24px; */
+    margin: 32px 0;
+    overflow-x: auto;
+    width: 60%;
+}
+
+.feature-item {
+   
+    color: #ff6600;
+    flex: 1 1 calc(33.33% - 20px); /* Ensure items take up 33.33% of the container width */
+    margin: 10px 0;
+    min-width: 150px; /* Set a minimum width to prevent them from shrinking too much */
+    box-sizing: border-box; /* Ensure padding and borders are included in the width/height */
+}
+.feature-item i {
+    font-size: 2rem;
+    margin-bottom: 8px;
+    margin-left: 15%;
+}
+
+.button-group {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pre-call-test-btn, .sign-in-btn {
+    padding: 10px 20px;
+    border: 2px solid #ff6600;
+    background-color: #fff;
+    color: #ff6600;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.sign-in-btn {
+    background-color: #ff6600;
+    color: #fff;
+    text-decoration: none;
+}
+
+.pre-call-test-btn:hover, .sign-in-btn:hover {
+    background-color: #fff;
+    color: #ff6600;
+}
+
+.image-section {
+    max-width: 100%;
+    flex: 1 1 19%;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.girl-image {
+    width: 90%;
+    height: auto;
+}
+
+/* responsive design */
+/* Responsive design for screens with max-width of 540px */
+/* Responsive design for screens with max-width of 768px */
+@media(max-width: 1024px) {
+    body{
+        overflow: hidden;
+    }
+    header {
+        /* Adjust padding and width for screens up to 1024px */
+        padding: 20px;
+        padding-left: 40px;
+        width: 100%;
+    }
+
+    header .logo-container {
+        /* Adjust margin for the logo container */
+        margin-left: 40px;
+    }
+    
+    header .logo-container img {
+        /* Adjust logo size */
+        width: 80px;
+        height: 80px;
+    }
+    
+    header .logo-container span {
+        /* Adjust font size for the logo text */
+        font-size: 18px;
+    }
+    
+    header .action-container {
+        /* Adjust margin for the action container */
+        margin-left: 15px;
+    }
+
+    header .action-container a span {
+        /* Adjust font size for action container text */
+        font-size: 17px;
+    }
+
+    header .action-container .sign-up-btn {
+        /* Adjust button styles */
+        border-radius: 30px;
+        font-size: 16px;
+        padding: 14px 12px;
+    }
+
+    header .action-container .theme-toggle-btn {
+        /* Adjust button styles */
+        border-radius: 30px;
+        font-size: 16px;
+        padding: 14px;  
+        margin-right: 10px; 
+    }
+
+    .container {
+        /* Adjust margin-top for the container */
+        margin-top: 60px;
+    }
+
+    .features {
+        /* Adjust width and overflow for the features section */
+        /* width: 100%; */
+        overflow-x: hidden;
+    }
+}
+
+
+@media(max-width: 900px) {
+    body{
+        overflow: hidden;
+    }
+    header {
+        /* Adjust padding and width for screens up to 1024px */
+        padding: 20px;
+        padding-left: 40px;
+        width: 100%;
+    }
+
+    header .logo-container {
+        /* Adjust margin for the logo container */
+        margin-left: 40px;
+    }
+    
+    header .logo-container img {
+        /* Adjust logo size */
+        width: 80px;
+        height: 80px;
+    }
+    
+    header .logo-container span {
+        /* Adjust font size for the logo text */
+        font-size: 18px;
+    }
+    
+    header .action-container {
+        /* Adjust margin for the action container */
+        margin-left: 15px;
+    }
+
+    header .action-container a span {
+        /* Adjust font size for action container text */
+        font-size: 17px;
+    }
+
+    header .action-container .sign-up-btn {
+        /* Adjust button styles */
+        border-radius: 30px;
+        font-size: 16px;
+        padding: 14px 12px;
+    }
+
+    header .action-container .theme-toggle-btn {
+        /* Adjust button styles */
+        border-radius: 30px;
+        font-size: 16px;
+        padding: 14px;  
+        margin-right: 10px; 
+    }
+
+    .container {
+        /* Adjust margin-top for the container */
+        margin-top: 60px;
+    }
+
+    .features {
+        /* Adjust width and overflow for the features section */
+        width: 100%;
+        overflow-x: hidden;
+    }
+}
+
+@media(max-width: 768px){
+    body{
+        overflow: hidden;
+    }
+    header{
+        /* Adjust padding and width for screens up to 768px */
+        padding: 15px;
+        padding-left: 30px;
+        width: 100%;
+    }
+
+    header .logo-container{
+        /* Adjust margin for the logo container */
+        margin-left: 30px;
+    }
+    
+    header .logo-container img{
+        /* Adjust logo size */
+        width: 60px;
+        height: 60px;
+    }
+    
+    header .logo-container span{
+        /* Adjust font size for the logo text */
+        font-size: 16px;
+    }
+    
+    header .action-container{
+        /* Adjust margin for the action container */
+        margin-left: 10px;
+    }
+
+    header .action-container a span{
+        /* Adjust font size for action container text */
+        font-size: 15px;
+    }
+
+    header .action-container .sign-up-btn{
+        /* Adjust button styles */
+        border-radius: 30px;
+        font-size: 14px;
+        padding: 12px 10px;
+    }
+
+    header .action-container .theme-toggle-btn{
+        /* Adjust button styles */
+        border-radius: 30px;
+        font-size: 14px;
+        padding: 12px;  
+        margin-right: 0; 
+    }
+
+    .container{
+        /* Adjust margin-top for the container */
+        margin-top: 40px;
+    }
+
+    .features{
+        /* Adjust width and overflow for the features section */
+        width: 100%;
+        overflow-x: hidden;
+    }
+}
+
+@media(max-width: 540px){
+    body{
+        overflow: hidden;
+    }
+    header{
+        /* Adjust padding and width for screens up to 540px */
+        padding: 12px;
+        padding-left: 25px;
+        width: 110%;
+    }
+
+    header .logo-container{
+        /* Adjust margin for the logo container */
+        margin-left: 70px;
+    }
+    
+    header .logo-container img{
+        /* Adjust logo size */
+        width: 55px;
+        height: 55px;
+    }
+    
+    header .logo-container span{
+        /* Adjust font size for the logo text */
+        font-size: 14px;
+    }
+    
+    header .action-container{
+        /* Adjust margin for the action container */
+        margin-left: 8px;
+    }
+
+    header .action-container a span{
+        /* Adjust font size for action container text */
+        font-size: 14px;
+    }
+
+    header .action-container .sign-up-btn{
+        /* Adjust button styles */
+        border-radius: 30px;
+        font-size: 13px;
+        padding: 10px 8px;
+    }
+
+    header .action-container .theme-toggle-btn{
+        /* Adjust button styles */
+        border-radius: 30px;
+        font-size: 13px;
+        padding: 10px;  
+        margin-right: 0; 
+    }
+
+    .container{
+        /* Adjust margin-top for the container */
+        margin-top: 35px;
+    }
+
+    .features{
+        /* Adjust width and overflow for the features section */
+        width: 115%;
+        overflow-x: hidden;
+    }
+}
+
+@media(max-width: 497px){
+    body{
+        overflow: hidden;
+    }
+    header{
+        padding: 10px 0 10px ;
+        padding-left: 20px;
+        width: 108%;
+    }
+
+    header .logo-container{
+        margin-left: 55px;
+    }
+    
+    header .logo-container img{
+        width: 50px;
+        height: 50px;
+    }
+    header .logo-container span{
+        font-size: 13px;
+    }
+    
+    header .action-container{
+        /* margin-right: 0;
+        padding-right: 0; */
+        margin-left: 5px;
+    }
+
+    header .action-container a span{
+        font-size: 13px;
+    }
+
+    header .action-container .sign-up-btn{
+        /* width: 80px;
+        height: 40px; */
+        border-radius: 30px;
+        font-size: 12px;
+        padding: 10px 7px;
+    }
+
+    header .action-container .theme-toggle-btn{
+        border-radius: 30px;
+        font-size: 12px;
+        padding: 10px;  
+        margin-right: 0; 
+    }
+    .container{
+        margin-top: 30px;
+    }
+    .features{
+        width: 120%;
+        overflow-x: hidden;
+        
+    }
+}
+
+/* Dark mode styles */
+.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+/* Ensure all text is white */
+.dark-mode .app-name,
+.dark-mode .join-test,
+.dark-mode h1 span,
+.dark-mode .subtitle,
+.dark-mode .features .feature-item p,
+.dark-mode .highlight {
+    color: #ffffff !important;
+}
+
+
+
+.dark-mode .title{
+    color: #ff6600;
+}
+
+/* Modify link colors */
+.dark-mode a {
+    color: #ffffff;
+}

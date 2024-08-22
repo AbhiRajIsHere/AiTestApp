@@ -1,0 +1,243 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.container {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Add dark mode styles */
+body.dark-mode {
+    background-color: #333;
+    color: #fff;
+}
+
+header.dark-mode {
+    background-color: #444;
+    border-bottom: 1px solid #555;
+}
+
+.sign-up-btn.dark-mode {
+    background-color: #ff6600;
+    color: #fff;
+    border: 2px solid #ff6600;
+}
+
+.sign-up-btn.dark-mode:hover {
+    background-color: #fff;
+    color: #ff6600;
+}
+
+/* Theme toggle button */
+.theme-toggle-btn {
+    background-color: #ff6600;
+    color: #fff;
+    border: 2px solid #ff6600;
+    border-radius: 20px;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-left: 10px;
+}
+
+/* .theme-toggle-btn.dark-mode {
+    background-color: #444;
+    color: #fff;
+    border-color: #444;
+} */
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    position: fixed;
+    top: 0;
+    width: 93%;
+    z-index: 1000;
+}
+
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+
+.logo {
+    width: 50px; /* Adjust this size to fit the logo */
+    margin-right: 10px;
+}
+
+.app-name {
+    font-weight: bold;
+    font-size: 2rem;
+    color: #716262;
+}
+
+.action-container {
+    display: flex;
+    align-items: center;
+}
+
+.no-account {
+    margin-right: 10px; /* Adjust the margin to increase space between text and button */
+    font-size: 1rem;
+    color: #716262;
+}
+
+.sign-up-btn {
+    background-color: #ff6600;
+    color: #fff;
+    border: 2px solid #ff6600;
+    border-radius: 20px;
+    padding: 5px 15px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.sign-up-btn i {
+    margin-left: 5px;
+}
+
+.sign-up-btn:hover {
+    background-color: #fff;
+    color: #ff6600;
+}
+
+.main-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 100px 20px;
+}
+
+.image-section {
+    max-width: 50%;
+}
+
+.test-image {
+    width: 75%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+    max-width: 40%;
+    padding-left: 50px;
+}
+
+.form-section h2 {
+    font-size: 24px;
+    margin-bottom: 30px;
+    color: #333;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.form-group input[type="text"],
+.form-group input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    color: #333;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #ff6600;
+}
+
+.form-group i {
+    position: absolute;
+    right: -2%;
+    top: 56%;
+    color: #ccc;
+    cursor: pointer;
+}
+
+.join-btn {
+    background-color: #ff6600;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    width: 108%;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    display: block;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.join-btn:hover {
+    background-color: #e55b00;
+}
+
+/* Dark mode styles */
+/* .dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+} */
+
+/* Ensure all text is white */
+.dark-mode .app-name,
+.dark-mode .no-account,
+.dark-mode .sign-up-btn,
+.dark-mode .title,
+.dark-mode h2,
+.dark-mode label,
+.dark-mode input,
+.dark-mode .join-btn {
+    color: #ffffff;
+}
+
+/* Ensure all input fields have proper colors */
+.dark-mode input[type="text"],
+.dark-mode input[type="password"] {
+    background-color: #333333;
+    color: #ffffff;
+    border-color: #444444;
+}
+
+/* Style the buttons */
+/* .dark-mode .sign-up-btn{
+    background-color: #333333;
+    border-color: #444444;
+} */
+
+/* Style the icons */
+.dark-mode .fas {
+    color: #ffffff;
+}
